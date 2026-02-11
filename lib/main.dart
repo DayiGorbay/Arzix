@@ -81,11 +81,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 241, 241, 241),   
+      backgroundColor: const Color.fromARGB(255, 241, 241, 241),   
 
       appBar: AppBar( 
-
-        backgroundColor: Color.fromARGB(255, 255, 255, 255), 
+        
+        surfaceTintColor: Colors.transparent,
+        scrolledUnderElevation: 0,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255), 
         centerTitle: true,
         title: Row(
 
@@ -119,7 +121,7 @@ class HomePage extends StatelessWidget {
                 children: [
                     
                   Image.asset("assets/images/information.png", width: 28, height: 28),
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   Text("نرخ ارز آزاد چیست؟", style: textTheme.bodyLarge),
         
                 ],
@@ -145,8 +147,8 @@ class HomePage extends StatelessWidget {
 
                   decoration: BoxDecoration(
 
-                    borderRadius: BorderRadius.all(Radius.circular(999)),
-                    color: Color.fromARGB(255, 130, 130, 130),
+                    borderRadius: const BorderRadius.all(Radius.circular(999)),
+                    color: const Color.fromARGB(255, 130, 130, 130),
 
                   ),
 
@@ -158,8 +160,8 @@ class HomePage extends StatelessWidget {
 
                         children: [
 
-                          Icon(CupertinoIcons.list_dash, color: Colors.white,),
-                          SizedBox(width: 8),
+                          const Icon(CupertinoIcons.list_dash, color: Colors.white,),
+                          const SizedBox(width: 8),
                           Text("نام آزاد ارز", style: textTheme.headlineLarge),
 
                         ],
@@ -170,8 +172,8 @@ class HomePage extends StatelessWidget {
 
                         children: [
 
-                          Icon(CupertinoIcons.money_dollar, color: Colors.white,),
-                          SizedBox(width: 2),
+                          const Icon(CupertinoIcons.money_dollar, color: Colors.white,),
+                          const SizedBox(width: 2),
                           Text("قیمت", style: textTheme.headlineLarge),
 
                         ],
@@ -182,8 +184,8 @@ class HomePage extends StatelessWidget {
 
                         children: [
 
-                          Icon(CupertinoIcons.chart_bar, color: Colors.white,),
-                          SizedBox(width: 10),
+                          const Icon(CupertinoIcons.chart_bar, color: Colors.white,),
+                          const SizedBox(width: 10),
                           Text("تغییر", style: textTheme.headlineLarge),
 
                         ],
@@ -205,18 +207,18 @@ class HomePage extends StatelessWidget {
                 height: 550,
                 // decoration: BoxDecoration(
 
-                //   borderRadius: BorderRadius.all(Radius.circular(10)),
+                //   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 //   // color: Color.fromARGB(255, 226, 226, 226),
                   
                 // ),
 
-                // physics: BouncingScrollPhysics(), 
-                child: ListView.separated(physics: BouncingScrollPhysics(), itemCount: 20, itemBuilder: (BuildContext context, int position){
+                // physics: const BouncingScrollPhysics(), 
+                child: ListView.separated(physics: const BouncingScrollPhysics(), itemCount: 20, itemBuilder: (BuildContext context, int position){
 
                   return Padding(
 
                     padding: const EdgeInsets.fromLTRB(0,15,0,0),
-                    child: ItemsContainerForMoneyWidget(),
+                    child: const ItemsContainerForMoneyWidget(),
 
                   );
 
@@ -227,14 +229,14 @@ class HomePage extends StatelessWidget {
                     return Padding(
 
                       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                      child: AdContainerForMoneyWidget(),
+                      child: const AdContainerForMoneyWidget(),
 
                     );
 
 
                   } else {
 
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
 
                   }
 
@@ -266,9 +268,9 @@ class HomePage extends StatelessWidget {
 
                     // onPressed: ()=>_infobox(context, "لیست ارز با موفقیت بروزرسانی شد", "Success"),
                     onPressed: ()=>_infobox(context, SnackType.success, message: 'عملیات با موفقیت انجام شد'),
-                    icon: Icon(CupertinoIcons.refresh_bold, color: Colors.white,), 
+                    icon: const Icon(CupertinoIcons.refresh_bold, color: Colors.white,), 
                     label: Text("بروزرسانی لیست ارز", style: textTheme.headlineLarge),
-                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 166, 71, 255))),
+                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(const Color.fromARGB(255, 166, 71, 255))),
                     
                   ),
                 
@@ -306,12 +308,12 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
     
         BoxDecoration(boxShadow:<BoxShadow>[
     
-          BoxShadow(blurRadius: 1.0,color: Colors.grey,)
+          const BoxShadow(blurRadius: 1.0,color: Colors.grey,)
     
         ],
       
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(999))
+        borderRadius: const BorderRadius.all(Radius.circular(999))
       
       ),
     
@@ -332,7 +334,7 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
                 ),
               ),
     
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
     
               Text("دلار آمریکا", style: textTheme.headlineMedium),
     
@@ -345,7 +347,7 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
             children: [
 
               Text("145000", style: textTheme.headlineMedium),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Text("تومان", style: textTheme.headlineMedium),
 
             ],
@@ -356,8 +358,8 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
             children: [
 
-              Icon(CupertinoIcons.up_arrow),
-              SizedBox(width: 5),
+              const Icon(CupertinoIcons.up_arrow),
+              const SizedBox(width: 5),
               Text("2300+", style: textTheme.headlineMedium),  
 
             ],
@@ -389,12 +391,12 @@ class AdContainerForMoneyWidget extends StatelessWidget {
     
         BoxDecoration(boxShadow:<BoxShadow>[
     
-          BoxShadow(blurRadius: 1.0,color: Colors.grey,)
+          const BoxShadow(blurRadius: 1.0,color: Colors.grey,)
     
         ],
       
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(999))
+        borderRadius: const BorderRadius.all(Radius.circular(999))
       
       ),
     
