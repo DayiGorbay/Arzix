@@ -1,7 +1,10 @@
+import 'package:arzix/model/Currency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:country_flags/country_flags.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 // import 'package:intl/intl.dart';
 
 void main () {
@@ -67,19 +70,81 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      home: const HomePage(),
+      home: HomePage(),
       
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-  
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // const HomePage({super.key});
+  List<Currency> currency = [];
+
+  getResponse(){
+
+    var url = Uri.parse("https://brsapi.ir/Api/Market/Gold_Currency.php?key=BdtkpSF4bcLNShNd21pL8dCh6zCeFWG6");
+
+    http.get(url).then((response) {
+
+
+      if (response.statusCode == 200) {
+
+        Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
+        List currencyList = jsonResponse["currency"];
+        // List jsonResponse = convert.jsonDecode(response.body);
+
+        if (currencyList.isNotEmpty) {
+
+          setState(() {
+
+            currency.clear();
+
+            for (var item in currencyList) {
+                        
+              currency.add(
+
+                Currency(
+
+                  date: item['date'].toString(), 
+                  time: item['time'].toString(), 
+                  symbol: item['symbol'].toString(),
+                  name_en: item['name_en'].toString(), 
+                  name: item['name'].toString(), 
+                  price: item['price'].toString(), 
+                  change_value: item['change_value'].toString(), 
+                  change_percent: item['change_percent'].toString(), 
+                  unit: item['unit'].toString()
+
+                )
+
+              );
+
+            }
+
+          });
+
+        }
+
+      }
+
+    });
+
+  }
+
+  void initState() {
+    super.initState();
+    getResponse();
+  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 241, 241, 241),   
 
@@ -213,12 +278,12 @@ class HomePage extends StatelessWidget {
                 // ),
 
                 // physics: const BouncingScrollPhysics(), 
-                child: ListView.separated(physics: const BouncingScrollPhysics(), itemCount: 20, itemBuilder: (BuildContext context, int position){
+                child: ListView.separated(physics: const BouncingScrollPhysics(), itemCount: currency.length, itemBuilder: (BuildContext context, int position){
 
                   return Padding(
 
                     padding: const EdgeInsets.fromLTRB(0,15,0,0),
-                    child: const ItemsContainerForMoneyWidget(),
+                    child: ItemsContainerForMoneyWidget(position, currency),
 
                   );
 
@@ -289,16 +354,18 @@ class HomePage extends StatelessWidget {
     );
 
   }
-
 }
 
 class ItemsContainerForMoneyWidget extends StatelessWidget {
-  const ItemsContainerForMoneyWidget({
-    super.key,
-  });
+
+  int position;
+  List<Currency> currency;
+
+  ItemsContainerForMoneyWidget(this.position, this.currency);
 
   @override
   Widget build(BuildContext context) {
+
     final textTheme = Theme.of(context).textTheme;
     return Container(
     
@@ -325,8 +392,8 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
     
             children: [
     
-              CountryFlag.fromCountryCode(
-                'US',
+              CountryFlag.fromCurrencyCode(
+                currency[position].symbol!,
                 theme: const ImageTheme(
                   shape: RoundedRectangle(3),
                   width: 30,
@@ -336,7 +403,7 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
     
               const SizedBox(width: 10,),
     
-              Text("دلار آمریکا", style: textTheme.headlineMedium),
+              Text(currency[position].name!, style: textTheme.headlineMedium),
     
             ],
     
@@ -346,9 +413,9 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
             children: [
 
-              Text("145000", style: textTheme.headlineMedium),
+              Text(currency[position].price!, style: textTheme.headlineMedium),
               const SizedBox(width: 5),
-              Text("تومان", style: textTheme.headlineMedium),
+              Text(currency[position].unit!, style: textTheme.headlineMedium),
 
             ],
 
@@ -360,7 +427,7 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
               const Icon(CupertinoIcons.up_arrow),
               const SizedBox(width: 5),
-              Text("2300+", style: textTheme.headlineMedium),  
+              Text(currency[position].change_value!, style: textTheme.headlineMedium),  
 
             ],
 

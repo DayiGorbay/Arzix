@@ -1,5 +1,5 @@
 name: arzix
-description: "A new Flutter project."
+description: "A Flutter-based mobile application that displays real-time currency exchange rates with a clean and user-friendly interface. The app fetches live market data and helps users track and monitor currency price changes instantly."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -34,6 +34,7 @@ dependencies:
     sdk: flutter
   intl: any
   country_flags: ^4.1.1
+  http: ^1.6.0
 
 
   # The following adds the Cupertino Icons font to your application.
