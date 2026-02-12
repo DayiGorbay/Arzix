@@ -77,6 +77,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -136,6 +138,7 @@ class _HomePageState extends State<HomePage> {
 
   }
 
+  @override
   void initState() {
     super.initState();
     getResponse();
@@ -361,16 +364,30 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
   int position;
   List<Currency> currency;
 
-  ItemsContainerForMoneyWidget(this.position, this.currency);
+  ItemsContainerForMoneyWidget(this.position, this.currency, {super.key});
 
   @override
   Widget build(BuildContext context) {
 
     final textTheme = Theme.of(context).textTheme;
+
+    final item = currency[position];
+
+    final bool isNegative = item.change_value!.startsWith('-');
+
+    final icon = isNegative
+      ? CupertinoIcons.down_arrow
+      : CupertinoIcons.up_arrow;
+
+    final color = isNegative
+      ? Colors.red
+      : Colors.green;
+
     return Container(
     
       width: double.infinity,
-      height: 50,
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
       decoration: 
     
         BoxDecoration(boxShadow:<BoxShadow>[
@@ -389,27 +406,43 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
         children: [
     
           Row(
+
+            crossAxisAlignment: CrossAxisAlignment.center,
     
             children: [
     
               CountryFlag.fromCurrencyCode(
                 currency[position].symbol!,
                 theme: const ImageTheme(
-                  shape: RoundedRectangle(3),
-                  width: 30,
-                  height: 20,
+                  shape: Circle(),
+                  width: 35,
+                  height: 35,
                 ),
               ),
     
               const SizedBox(width: 10,),
-    
-              Text(currency[position].name!, style: textTheme.headlineMedium),
+
+              Column(
+
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+
+                  Text(currency[position].name!, style: textTheme.headlineMedium),
+                  Text(currency[position].name_en!, style: textTheme.headlineMedium),
+
+                ],
+
+              )
     
             ],
     
           ),
 
           Row(
+
+            crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
 
@@ -423,11 +456,25 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
           Row(
 
+            crossAxisAlignment: CrossAxisAlignment.center,
+
             children: [
 
-              const Icon(CupertinoIcons.up_arrow),
+              Icon(icon, color: color),
               const SizedBox(width: 5),
-              Text(currency[position].change_value!, style: textTheme.headlineMedium),  
+
+              Column(
+
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+
+                  Text(currency[position].change_value!, style: textTheme.headlineMedium?.copyWith(color: color)),  
+                  Text("${currency[position].change_percent!}%", style: textTheme.headlineMedium?.copyWith(color: color)),  
+
+                ],
+
+              )
 
             ],
 
