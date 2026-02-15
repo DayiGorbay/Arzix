@@ -1,4 +1,4 @@
-import 'package:arzix/model/Currency.dart';
+import 'package:arzix/Models/Currency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -87,54 +87,51 @@ class _HomePageState extends State<HomePage> {
   // const HomePage({super.key});
   List<Currency> currency = [];
 
-  getResponse(){
+  Future getResponse () async {
 
     var url = Uri.parse("https://brsapi.ir/Api/Market/Gold_Currency.php?key=BdtkpSF4bcLNShNd21pL8dCh6zCeFWG6");
 
-    http.get(url).then((response) {
+    var response = await http.get(url);
 
+    if (response.statusCode == 200) {
 
-      if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
+      List currencyList = jsonResponse["currency"];
+      // List jsonResponse = convert.jsonDecode(response.body);
 
-        Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
-        List currencyList = jsonResponse["currency"];
-        // List jsonResponse = convert.jsonDecode(response.body);
+      if (currencyList.isNotEmpty) {
 
-        if (currencyList.isNotEmpty) {
+        setState(() {
 
-          setState(() {
+          currency.clear();
 
-            currency.clear();
-
-            for (var item in currencyList) {
+          for (var item in currencyList) {
                         
-              currency.add(
+            currency.add(
 
-                Currency(
+              Currency(
 
-                  date: item['date'].toString(), 
-                  time: item['time'].toString(), 
-                  symbol: item['symbol'].toString(),
-                  name_en: item['name_en'].toString(), 
-                  name: item['name'].toString(), 
-                  price: item['price'].toString(), 
-                  change_value: item['change_value'].toString(), 
-                  change_percent: item['change_percent'].toString(), 
-                  unit: item['unit'].toString()
+                date: item['date'].toString(), 
+                time: item['time'].toString(), 
+                symbol: item['symbol'].toString(),
+                name_en: item['name_en'].toString(), 
+                name: item['name'].toString(), 
+                price: item['price'].toString(), 
+                change_value: item['change_value'].toString(), 
+                change_percent: item['change_percent'].toString(), 
+                unit: item['unit'].toString()
 
-                )
+              )
 
-              );
+            );
 
-            }
+          }
 
-          });
-
-        }
+        });
 
       }
 
-    });
+    }
 
   }
 
@@ -585,7 +582,7 @@ void _infobox(BuildContext context,SnackType type,{required String message}) {
 
           Expanded(
 
-            child: Text(message,style: Theme.of(context).textTheme.headlineMedium ?.copyWith(color: Colors.white)),
+            child: Text(message,style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
 
           ),
 
