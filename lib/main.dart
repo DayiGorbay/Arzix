@@ -5,10 +5,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:intl/intl.dart';
 
-void main () {
+Future<void> main () async {
 
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 
 }
@@ -87,11 +89,11 @@ class _HomePageState extends State<HomePage> {
   // const HomePage({super.key});
   List<Currency> currency = [];
 
-  Future getResponse () async {
+  Future getResponse() async {
 
-    var url = Uri.parse("https://brsapi.ir/Api/Market/Gold_Currency.php?key=BdtkpSF4bcLNShNd21pL8dCh6zCeFWG6");
+    var url = Uri.parse('${dotenv.env['API_URL']}?key=${dotenv.env['API_KEY']}');
 
-    var response = await http.get(url);
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
 

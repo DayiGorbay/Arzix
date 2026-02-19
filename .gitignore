@@ -44,9 +44,12 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-#build apps in other platforms
+# Build apps in other platforms
 windows/
 web/
 macos/
 linux/
 ios/
+
+# .env File
+.env
