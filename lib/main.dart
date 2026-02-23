@@ -92,7 +92,6 @@ class _HomePageState extends State<HomePage> {
   Future getResponse() async {
 
     var url = Uri.parse('${dotenv.env['API_URL']}?key=${dotenv.env['API_KEY']}');
-
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -162,8 +161,7 @@ class _HomePageState extends State<HomePage> {
 
           children: [
 
-            Image.asset("assets/images/money.png", width: 45, height: 45),
-            const SizedBox(width: 8),
+            Image.asset("assets/images/arzix_logo.png", width: 60, height: 60),
             Text(
               "اَرزیـــکس",
               style: Theme.of(context).appBarTheme.toolbarTextStyle,
@@ -183,26 +181,26 @@ class _HomePageState extends State<HomePage> {
 
               // QA
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
                     
-                  Image.asset("assets/images/information.png", width: 28, height: 28),
-                  const SizedBox(width: 5,),
-                  Text("نرخ ارز آزاد چیست؟", style: textTheme.bodyLarge),
+              //     Image.asset("assets/images/information.png", width: 28, height: 28),
+              //     const SizedBox(width: 5,),
+              //     Text("نرخ ارز آزاد چیست؟", style: textTheme.bodyLarge),
         
-                ],
+              //   ],
         
-              ),
+              // ),
         
-              const SizedBox(height: 5),
+              // const SizedBox(height: 5),
         
-              Text(
-                """نرخ ارز آزاد قیمتی است که ارز در بازار آزاد بر اساس عرضه و تقاضا معامله می‌شود و دولت دخالت مستقیمی در تعیین آن ندارد. این نرخ معمولاً از نرخ رسمی بالاتر است و سریع‌تر تحت تأثیر شرایط اقتصادی و سیاسی تغییر می‌کند.""",
-                style: textTheme.bodyMedium,
-              ),
+              // Text(
+              //   """نرخ ارز آزاد قیمتی است که ارز در بازار آزاد بر اساس عرضه و تقاضا معامله می‌شود و دولت دخالت مستقیمی در تعیین آن ندارد. این نرخ معمولاً از نرخ رسمی بالاتر است و سریع‌تر تحت تأثیر شرایط اقتصادی و سیاسی تغییر می‌کند.""",
+              //   style: textTheme.bodyMedium,
+              // ),
         
-              const SizedBox(height: 5),
+              // const SizedBox(height: 5),
 
               // Arz Title Header
         
