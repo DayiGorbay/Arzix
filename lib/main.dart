@@ -88,6 +88,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // const HomePage({super.key});
   List<Currency> currency = [];
+  late Future responseFuture;
 
   Future getResponse() async {
 
@@ -102,44 +103,42 @@ class _HomePageState extends State<HomePage> {
 
       if (currencyList.isNotEmpty) {
 
-        setState(() {
+        currency.clear();
 
-          currency.clear();
-
-          for (var item in currencyList) {
+        for (var item in currencyList) {
                         
-            currency.add(
+          currency.add(
 
-              Currency(
+            Currency(
 
-                date: item['date'].toString(), 
-                time: item['time'].toString(), 
-                symbol: item['symbol'].toString(),
-                name_en: item['name_en'].toString(), 
-                name: item['name'].toString(), 
-                price: item['price'].toString(), 
-                change_value: item['change_value'].toString(), 
-                change_percent: item['change_percent'].toString(), 
-                unit: item['unit'].toString()
+              date: item['date'].toString(), 
+              time: item['time'].toString(), 
+              symbol: item['symbol'].toString(),
+              name_en: item['name_en'].toString(), 
+              name: item['name'].toString(), 
+              price: item['price'].toString(), 
+              change_value: item['change_value'].toString(), 
+              change_percent: item['change_percent'].toString(), 
+              unit: item['unit'].toString()
 
-              )
+            )
 
-            );
+          );
 
-          }
-
-        });
+        }
 
       }
 
     }
+
+    return response;
 
   }
 
   @override
   void initState() {
     super.initState();
-    getResponse();
+    responseFuture = getResponse();
   }
 
   @override
@@ -278,35 +277,52 @@ class _HomePageState extends State<HomePage> {
                 // ),
 
                 // physics: const BouncingScrollPhysics(), 
-                child: ListView.separated(physics: const BouncingScrollPhysics(), itemCount: currency.length, itemBuilder: (BuildContext context, int position){
+                child: FutureBuilder(
 
-                  return Padding(
+                  builder: (context, snapshot) {
+                    return snapshot.hasData 
 
-                    padding: const EdgeInsets.fromLTRB(0,15,0,0),
-                    child: ItemsContainerForMoneyWidget(position, currency),
+                      ? 
+                      
+                      ListView.separated(physics: const BouncingScrollPhysics(), itemCount: currency.length, itemBuilder: (BuildContext context, int position){
+                  
+                        return Padding(
+                      
+                          padding: const EdgeInsets.fromLTRB(0,15,0,0),
+                          child: ItemsContainerForMoneyWidget(position, currency),
+                      
+                        );
+                      
+                        }, separatorBuilder: (BuildContext context, int index) {  
+                      
+                        if (index%9==3) {
+                      
+                          return Padding(
+                      
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            child: const AdContainerForMoneyWidget(),
+                      
+                          );
+                      
+                      
+                        } else {
+                      
+                          return const SizedBox.shrink();
+                      
+                        }
+                      
+                      
+                      },) 
 
-                  );
+                      : 
+                      
+                    const Center(child: CircularProgressIndicator());
 
-                }, separatorBuilder: (BuildContext context, int index) {  
+                  },
 
-                  if (index%9==3) {
+                  future: responseFuture,
 
-                    return Padding(
-
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                      child: const AdContainerForMoneyWidget(),
-
-                    );
-
-
-                  } else {
-
-                    return const SizedBox.shrink();
-
-                  }
-
-
-                },),
+                ),
 
               ),
 
@@ -332,7 +348,14 @@ class _HomePageState extends State<HomePage> {
                   child: TextButton.icon(
 
                     // onPressed: ()=>_infobox(context, "لیست ارز با موفقیت بروزرسانی شد", "Success"),
-                    onPressed: ()=>_infobox(context, SnackType.success, message: 'عملیات با موفقیت انجام شد'),
+                    onPressed: () {
+
+                      setState(() {
+                        responseFuture = getResponse();
+                      });
+                      _infobox(context, SnackType.success, message: 'عملیات با موفقیت انجام شد');
+
+                    },
                     icon: const Icon(CupertinoIcons.refresh_bold, color: Colors.white,), 
                     label: Text("بروزرسانی لیست ارز", style: textTheme.headlineLarge),
                     style: ButtonStyle(backgroundColor: WidgetStateProperty.all(const Color.fromARGB(255, 166, 71, 255))),
