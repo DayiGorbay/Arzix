@@ -6,7 +6,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
 Future<void> main () async {
 
@@ -469,7 +469,7 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
             children: [
 
-              Text(getPersianNumbers(currency[position].price!), style: textTheme.headlineMedium),
+              Text(formatNumber(num.parse(currency[position].price!)), style: textTheme.headlineMedium),
               const SizedBox(width: 5),
               Text(currency[position].unit!, style: textTheme.headlineMedium),
 
@@ -494,8 +494,8 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
                 children: [
 
-                  Text(getPersianNumbers(currency[position].change_value!), style: textTheme.headlineMedium?.copyWith(color: color)),  
-                  Text("${getPersianNumbers(currency[position].change_percent!)}%", style: textTheme.headlineMedium?.copyWith(color: color)),  
+                  Text(formatNumber(num.parse(currency[position].change_value!)), style: textTheme.headlineMedium?.copyWith(color: color)),  
+                  Text("${formatChangePercent(num.parse(currency[position].change_percent!))}%", style: textTheme.headlineMedium?.copyWith(color: color)),  
 
                 ],
 
@@ -646,14 +646,49 @@ void _infobox(BuildContext context,SnackType type,{required String message}) {
 String getPersianNumbers (String number) {
 
   const en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const fa = ['۰', '١', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  const fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
-  en.forEach((element) {
+  for (int i = 0; i < en.length; i++) {
+    
+    number = number.replaceAll(en[i], fa[i]);
 
-    number = number.replaceAll(element, fa[en.indexOf(element)]);
-
-  });
+  }
 
   return number;
+
+}
+
+String formatNumber(num number) {
+
+  final formatter = NumberFormat("#,###", "fa_IR");
+
+  String formatted = formatter.format(number.abs());
+
+  formatted = getPersianNumbers(formatted);
+
+  if (number < 0) {
+    return "\u200E-$formatted";
+  }
+
+  return formatted;
+
+}
+
+String formatChangePercent(num number, {int decimalDigits = 2,}) {
+
+  final formatter = NumberFormat(
+    "#,##0.${'0' * decimalDigits}",
+    "fa_IR",
+  );
+
+  String formatted = formatter.format(number.abs());
+
+  formatted = getPersianNumbers(formatted);
+
+  if (number < 0) {
+    return "\u200E-$formatted";
+  }
+
+  return formatted;
 
 }
