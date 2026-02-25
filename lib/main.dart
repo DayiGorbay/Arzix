@@ -347,7 +347,6 @@ class _HomePageState extends State<HomePage> {
 
                   child: TextButton.icon(
 
-                    // onPressed: ()=>_infobox(context, "لیست ارز با موفقیت بروزرسانی شد", "Success"),
                     onPressed: () {
 
                       setState(() {
@@ -424,6 +423,8 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+
+          // Name
     
           Row(
 
@@ -460,19 +461,23 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
     
           ),
 
+          // Price
+
           Row(
 
             crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
 
-              Text(currency[position].price!, style: textTheme.headlineMedium),
+              Text(getPersianNumbers(currency[position].price!), style: textTheme.headlineMedium),
               const SizedBox(width: 5),
               Text(currency[position].unit!, style: textTheme.headlineMedium),
 
             ],
 
           ),
+
+          // Change
 
           Row(
 
@@ -489,8 +494,8 @@ class ItemsContainerForMoneyWidget extends StatelessWidget {
 
                 children: [
 
-                  Text(currency[position].change_value!, style: textTheme.headlineMedium?.copyWith(color: color)),  
-                  Text("${currency[position].change_percent!}%", style: textTheme.headlineMedium?.copyWith(color: color)),  
+                  Text(getPersianNumbers(currency[position].change_value!), style: textTheme.headlineMedium?.copyWith(color: color)),  
+                  Text("${getPersianNumbers(currency[position].change_percent!)}%", style: textTheme.headlineMedium?.copyWith(color: color)),  
 
                 ],
 
@@ -637,3 +642,18 @@ void _infobox(BuildContext context,SnackType type,{required String message}) {
 //   return DateFormat('hh:mm:ss').format(dateTime);
 
 // }
+
+String getPersianNumbers (String number) {
+
+  const en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const fa = ['۰', '١', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+  en.forEach((element) {
+
+    number = number.replaceAll(element, fa[en.indexOf(element)]);
+
+  });
+
+  return number;
+
+}
