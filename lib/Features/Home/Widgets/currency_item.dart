@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
-import 'package:arzix/Models/Currency.dart';
+import 'package:arzix/Models/currency.dart';
 import 'package:arzix/Core/Utils/formatters.dart';
 
 class CurrencyItemWidget extends StatelessWidget {
@@ -130,7 +130,6 @@ class CurrencyItemWidget extends StatelessWidget {
             ],
 
           ),
-    
     
         ],
     
