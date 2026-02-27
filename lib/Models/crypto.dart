@@ -9,6 +9,8 @@ class Crypto {
   String? change_value;
   String? change_percent;
   String? unit;
+  String? market_cap;
+  String? description;
 
   Crypto({
     required this.date, 
@@ -19,7 +21,9 @@ class Crypto {
     required this.price, 
     required this.change_value, 
     required this.change_percent, 
-    required this.unit
+    required this.unit,
+    required this.market_cap,
+    required this.description,
   });
 
 }

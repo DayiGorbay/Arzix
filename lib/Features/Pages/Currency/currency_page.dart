@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:arzix/Services/currency_service.dart';
+import 'package:arzix/Services/api_service.dart';
 import 'package:arzix/Features/Pages/Currency/currency_item.dart';
 import 'package:arzix/Features/Widgets/ad_container.dart';
 import 'package:arzix/Core/Widgets/infobox.dart';

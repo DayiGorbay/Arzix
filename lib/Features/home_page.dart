@@ -1,6 +1,8 @@
+import 'package:arzix/Models/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:arzix/Core/Widgets/bottom_navbar.dart';
 import 'package:arzix/Features/Pages/Currency/currency_page.dart';
+import 'package:arzix/Features/Pages/Crypto/crypto_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return const CurrencyPage(); // Currency Page (default page)
       case 1:
-        return const CurrencyPage(); // Crypto Page
+        return const CryptoPage(); // Crypto Page
       case 2:
         return const CurrencyPage(); // Gold Page
       case 3:
