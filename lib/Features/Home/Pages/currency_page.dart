@@ -121,7 +121,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
             SizedBox(
 
               width: double.infinity,
-              height: MediaQuery.of(context).size.height/1.94,
+              height: MediaQuery.of(context).size.height/1.98,
               // decoration: BoxDecoration(
 
               //   borderRadius: const BorderRadius.all(Radius.circular(10)),

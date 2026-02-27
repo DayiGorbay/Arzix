@@ -31,16 +31,21 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: Container(
         height: 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.2),
               blurRadius: 20,
               offset: const Offset(0, 10),
+            ),
+            BoxShadow(
+              color: const Color.fromARGB(255, 226, 226, 226),
+              // blurRadius: 20,
+              offset: const Offset(0, 5),
             )
           ],
           color: Colors.white,
@@ -67,11 +72,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            padding: const EdgeInsets.all(12),
+            duration: const Duration(milliseconds: 0),
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             decoration: BoxDecoration(
               color: isActive ? Colors.grey.shade200 : Colors.transparent,
-              shape: BoxShape.circle,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(999),
             ),
             child: Icon(
               icon,
@@ -79,12 +85,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
               size: 26,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             label,
             style: const TextStyle(
               fontSize: 13,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
           )
         ],
