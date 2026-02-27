@@ -30,9 +30,8 @@ class MyApp extends StatelessWidget {
       ],
 
       theme: AppTheme.lightTheme,
-      
-      home: HomePage(),
-      
+      home: const HomePage(),
+  
     );
   }
 }
