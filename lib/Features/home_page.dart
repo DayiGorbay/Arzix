@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:arzix/Features/Home/Widgets/bottom_navbar.dart';
-import 'package:arzix/Features/Home/Pages/currency_page.dart';
+import 'package:arzix/Core/Widgets/bottom_navbar.dart';
+import 'package:arzix/Features/Pages/Currency/currency_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

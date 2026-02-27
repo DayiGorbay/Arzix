@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:arzix/Features/Home/Services/currency_service.dart';
-import 'package:arzix/Features/Home/Widgets/currency_item.dart';
-import 'package:arzix/Features/Home/Widgets/ad_container.dart';
+import 'package:arzix/Services/currency_service.dart';
+import 'package:arzix/Features/Pages/Currency/currency_item.dart';
+import 'package:arzix/Features/Widgets/ad_container.dart';
 import 'package:arzix/Core/Widgets/infobox.dart';
 
 class CurrencyPage extends StatefulWidget {
